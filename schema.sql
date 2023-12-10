@@ -1,46 +1,40 @@
---https://www.w3schools.com/sql/sql_foreignkey.asp
 DROP DATABASE IF EXISTS dolphin_crm;
 
 CREATE DATABASE dolphin_crm;
+
 USE dolphin_crm;
 
-CREATE TABLE Users(
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT, --auto incrementing
-    firstname varchar(255),
-    lastname varchar(255),
-    password varchar(255) NOT NULL,
-    email varchar(255),
-    role varchar(100), 
-    created_at DATETIME,
-);
+CREATE TABLE users(
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    firstname varchar(255) NOT NULL,
+    lastname varchar(255) NOT NULL,
+    password varchar(60) NOT NULL,
+    email varchar(60) NOT NULL,
+    role varchar(60) NOT NULL,
+    created_at DATETIME NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=1;
 
-CREATE TABLE Contacts(
-    id int NOT NULL PRIMARY KEY AUTO_INCREMENT, --auto incrementing
-    title varchar(150), 
-    firstname varchar(150), 
-    lastname varchar(150), 
-    email varchar(150), 
-    telephone varchar(15),
-    company varchar(100), 
+
+CREATE TABLE contacts (
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title varchar(150) NOT NULL,
+    firstname varchar(255) NOT NULL,
+    lastname varchar(255) NOT NULL,
+    email varchar(60) NOT NULL,
+    telephone varchar(15) NOT NULL,
+    company varchar(50) NOT NULL,
     type ENUM ('Sales Lead','Support'),
-    assigned_to int, 
-    created_by int, 
-    created_at DATETIME, 
-    updated_at DATETIME,
+    assigned_to int NOT NULL,
+    created_by int NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=1;
 
-    FOREIGN KEY (assigned_to) REFERENCES Users(id),  --store the appropriate user id
-    FOREIGN KEY (created_by) REFERENCES Users(id)  --store the appropriate user id
-);
 
-CREATE TABLE Notes(
-    id int NOT NUll PRIMARY KEY AUTO_INCREMENT, --auto incrementing
-    contact_id int, 
-    comment text, 
-    created_by int, 
-    created_at DATETIME,
-
-    FOREIGN KEY (contact_id) REFERENCES Contacts(id), --store the id from Contacts Table
-    FOREIGN KEY (created_by) REFERENCES Users(id) --store the appropriate user id
-);
-
-INSERT INTO Users (firstname, lastname, password, email, role, created_at)VALUES ('Marissa', 'Rivers', 'password123', 'admin@project2.com', 'Admin', NOW() );
+CREATE TABLE notes (
+    id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    contact_id int NOT NULL,
+    comment text,
+    created_by int NOT NULL,
+    created_at datetime(6) NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=1;
